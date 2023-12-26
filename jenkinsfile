@@ -1,0 +1,54 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build and Test') {
+            steps {
+                script {
+                    // Burada gerekli build ve test adımları yer alabilir
+                }
+            }
+        }
+
+        stage('Run HTML') {
+            steps {
+                // HTML dosyasını bir HTTP sunucusunda çalıştırma adımı
+                sh 'python -m http.server 8080 &' // Python HTTP sunucusunu başlat
+                echo 'HTML server is running at http://localhost:8080'
+
+                // İsterseniz başka komutlar ekleyebilirsiniz
+                // Örneğin: selenium veya başka bir test aracını kullanarak HTML dosyanızı test etme adımları
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    // Gerekirse dağıtım adımları burada yer alabilir
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Deployment successful!'
+        }
+        failure {
+            echo 'Deployment failed!'
+        }
+    }
+
+    // Jenkins pipeline sona erdiğinde HTTP sunucusunu kapatma adımı
+    post {
+        always {
+            sh 'killall python' // HTTP sunucusunu kapat
+        }
+    }
+}
