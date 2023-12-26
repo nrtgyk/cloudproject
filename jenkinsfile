@@ -4,7 +4,9 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                script {
+                    checkout([$class: 'GitSCM', branches: [[name: 'main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/nrtgyk/cloudproject.git']]])
+                }
             }
         }
 
@@ -20,7 +22,7 @@ pipeline {
         stage('Run HTML') {
             steps {
                 // HTML dosyasını bir HTTP sunucusunda çalıştırma adımı
-                sh 'python -m http.server 8080 &' // Python HTTP sunucusunu başlat
+            
                 echo 'HTML server is running at http://localhost:8080'
 
                 // İsterseniz başka komutlar ekleyebilirsiniz
