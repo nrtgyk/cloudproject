@@ -1,3 +1,3 @@
 # cloudproject
 #npm start ile locall
-#npm 
+#npm deneme
