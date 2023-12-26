@@ -11,6 +11,7 @@ pipeline {
         stage('Build and Test') {
             steps {
                 script {
+                    sh 'mvn clean package'
                     // Burada gerekli build ve test adımları yer alabilir
                 }
             }
@@ -27,10 +28,11 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+         stage('Deploy') {
             steps {
                 script {
-                    // Gerekirse dağıtım adımları burada yer alabilir
+                    // Uygulamayı başlat
+                    sh 'node server.js &'
                 }
             }
         }
