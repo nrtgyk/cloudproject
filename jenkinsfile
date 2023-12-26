@@ -50,9 +50,5 @@ pipeline {
     }
 
     // Jenkins pipeline sona erdiğinde HTTP sunucusunu kapatma adımı
-    post {
-        always {
-            sh 'killall python' // HTTP sunucusunu kapat
-        }
-    }
+
 }
