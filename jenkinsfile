@@ -14,6 +14,7 @@ pipeline {
             steps {
                 script {
                     sh 'mvn clean package'
+                    sh 'mvn clean package'
                     // Burada gerekli build ve test adımları yer alabilir
                 }
             }
@@ -42,10 +43,18 @@ pipeline {
 
     post {
         success {
-            echo 'Deployment successful!'
+            // Başarılı bir şekilde tamamlandığında yapılacak işlemler
+            echo 'Pipeline başarıyla tamamlandı!'
         }
+
         failure {
-            echo 'Deployment failed!'
+            // Hata durumunda yapılacak işlemler
+            echo 'Pipeline başarısız oldu. Uyarı mesajları kontrol edilmeli.'
+        }
+
+        always {
+            // Her durumda yapılacak işlemler
+            echo 'Pipeline tamamlandı.'
         }
     }
 
