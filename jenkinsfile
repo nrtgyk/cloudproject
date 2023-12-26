@@ -10,51 +10,23 @@ pipeline {
             }
         }
 
-        stage('Build and Test') {
-            steps {
-                script {
-                    sh 'mvn clean package'
-                    sh 'mvn clean package'
-                    // Burada gerekli build ve test adımları yer alabilir
-                }
-            }
-        }
-
-        stage('Run HTML') {
-            steps {
-                // HTML dosyasını bir HTTP sunucusunda çalıştırma adımı
-            
-                echo 'HTML server is running at http://localhost:8080'
-
-                // İsterseniz başka komutlar ekleyebilirsiniz
-                // Örneğin: selenium veya başka bir test aracını kullanarak HTML dosyanızı test etme adımları
-            }
-        }
-
-         stage('Deploy') {
-            steps {
-                script {
-                    // Uygulamayı başlat
-                    sh 'node server.js &'
-                }
-            }
-        }
+        
     }
 
     post {
         success {
             // Başarılı bir şekilde tamamlandığında yapılacak işlemler
-            echo 'Pipeline başarıyla tamamlandı!'
+            echo 'Pipeline başariyla tamamlandi!'
         }
 
         failure {
             // Hata durumunda yapılacak işlemler
-            echo 'Pipeline başarısız oldu. Uyarı mesajları kontrol edilmeli.'
+            echo 'Pipeline kontrol edilmeli.'
         }
 
         always {
             // Her durumda yapılacak işlemler
-            echo 'Pipeline tamamlandı.'
+            echo 'Pipeline tamamlandi.'
         }
     }
 
