@@ -1,12 +1,21 @@
 pipeline {
     agent any
+    tools{
+        'maven_3_5_0'
+    }
 
     stages {
         stage('Checkout') {
             steps {
                 script {
                     checkout([$class: 'GitSCM', branches: [[name: 'main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/nrtgyk/cloudproject.git']]])
+                    sh'mvn clean install'
                 }
+            }
+        }
+        stage('build maven'){
+            steps{
+
             }
         }
         stage('Install Dependencies') {
