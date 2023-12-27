@@ -13,11 +13,7 @@ pipeline {
                 }
             }
         }
-        stage('build maven'){
-            steps{
-
-            }
-        }
+        
         stage('Install Dependencies') {
             steps {
                 script {
