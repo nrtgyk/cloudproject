@@ -27,10 +27,9 @@ pipeline {
             steps {
                 script {
                     sh'docker pull alpine'
-                    // Dockerfile dosyanızın bulunduğu dizine gidin
-                    dir('C:\Users\HP\Documents\Dersler\4.1\cloud\cloudproject\dockerfile') {
+                    
                         // Docker imajını oluşturun
-                        sh 'docker build -t nurtengiyik/cloudproject:latest .'
+                    sh 'docker build -t nurtengiyik/cloudproject:latest'
                     }
                 }
             }
