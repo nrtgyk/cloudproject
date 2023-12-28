@@ -23,6 +23,26 @@ pipeline {
                 }
             }
         }
+        stage('Docker Build') {
+            steps {
+                script {
+                    // Dockerfile dosyanızın bulunduğu dizine gidin
+                    dir('C:\Users\HP\Documents\Dersler\4.1\cloud\cloudproject\dockerfile') {
+                        // Docker imajını oluşturun
+                        sh 'docker build -t nurtengiyik/cloudproject .'
+                    }
+                }
+            }
+        }
+
+        stage('Docker Push') {
+            steps {
+                script {
+                    // Docker imajını Docker Registry'ye gönderin (örneğin, DockerHub)
+                    sh 'docker push nurtengiyik/cloudproject'
+                }
+            }
+        }
 
         
     }

@@ -1,7 +1,7 @@
-FROM openjdk:8-jdk
-
-EXPOSE 8080
-
-ADD target/couldproject.jar couldproject.jar
-
-ENTRYPOINT [ "java",".jar","/couldproject.jar" ]
+FROM node:9.3.0-alpine
+RUN npm install -g @angular/cli@1.5.5 \
+     && mkdir -p C:\Users\HP\Documents\Dersler\4.1\cloud\cloudproject
+WORKDIR C:\Users\HP\Documents\Dersler\4.1\cloud\cloudproject
+ADD . C:\Users\HP\Documents\Dersler\4.1\cloud\cloudproject
+RUN npm install && ng build
+EXPOSE 80
