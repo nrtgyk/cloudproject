@@ -12,18 +12,7 @@ pipeline {
                 }
             }
         }
-        stage('Docker Build') {
-            steps {
-                script {
-                    
-                    
-                        // Docker imajını oluşturun
-                    sh 'docker build -t nurtengiyik/cloudproject:latest'
-                    }
-                }
-            }
-        }
-
+    
         
 
         
