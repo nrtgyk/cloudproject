@@ -1,8 +1,6 @@
 pipeline {
     agent any
-    tools{
-        'maven_3_5_0'
-    }
+    
 
     stages {
         stage('Checkout') {
@@ -35,15 +33,7 @@ pipeline {
             }
         }
 
-        stage('Docker Push') {
-            steps {
-                script {
-                    // Docker imajını Docker Registry'ye gönderin (örneğin, DockerHub)
-                    sh'docker tag my-node-app:latest nurtengiyik/cloudproject:latest'
-                    sh 'docker push nurtengiyik/cloudproject:latest'
-                }
-            }
-        }
+        
 
         
     }
