@@ -39,7 +39,7 @@ pipeline {
             steps {
                 script {
                     // Docker imajını Docker Registry'ye gönderin (örneğin, DockerHub)
-                    sh 'docker push nurtengiyik/cloudproject'
+                    sh 'docker push nurtengiyik/cloudproject:tagname'
                 }
             }
         }
