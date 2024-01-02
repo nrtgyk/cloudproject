@@ -1,43 +1,18 @@
 pipeline {
     agent any
-        
-    
-
     stages {
-        stage('Checkout') {
-            steps {
-                // Checkout the code from your version control system (e.g., Git)
-                checkout scm
-            }
-        }
-
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    // Build the Docker image
-                    docker push nurtengiyik/cloudproject:nurten
+        stage('Build') {
+            agent {
+                docker {
+                    image 'gradle:8.2.0-jdk17-alpine'
+                    // Run the container on the node specified at the
+                    // top-level of the Pipeline, in the same workspace,
+                    // rather than on a new node entirely:
+                    reuseNode true
                 }
             }
-        }
-
-        stage('Run Docker Container') {
             steps {
-                script {
-                    // Run the Docker container
-                    docker.image('nurten/cloudproject').run('-p 8080:80', '-d')
-                }
-            }
-        }
-
-        // Add more stages as needed for testing, deployment, etc.
-    }
-
-    post {
-        always {
-            // Clean up by stopping and removing the Docker container
-            script {
-                docker.image('nurten/cloudproject').stop()
-                docker.image('nurten/cloudproject').remove()
+                sh 'gradle --version'
             }
         }
     }
