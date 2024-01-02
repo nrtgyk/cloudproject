@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        docker { image 'node:20.10.0-alpine3.19' }
+    }
 
     stages {
         stage('Checkout') {
@@ -13,7 +15,7 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image
-                    docker.build 'nurten/cloudproject:new'
+                    docker.build 'nurten/cloudproject'
                 }
             }
         }
@@ -22,7 +24,7 @@ pipeline {
             steps {
                 script {
                     // Run the Docker container
-                    docker.image('nurten/cloudproject:new').run('-p 8080:80', '-d')
+                    docker.image('nurten/cloudproject').run('-p 8080:80', '-d')
                 }
             }
         }
