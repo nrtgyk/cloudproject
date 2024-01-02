@@ -1,40 +1,42 @@
 pipeline {
     agent any
-    
 
     stages {
-        
-        stage('Install Dependencies') {
+        stage('Checkout') {
+            steps {
+                // Checkout the code from your version control system (e.g., Git)
+                checkout scm
+            }
+        }
+
+        stage('Build Docker Image') {
             steps {
                 script {
-                    echo 'Installing dependencies...'
-                    
+                    // Build the Docker image
+                    docker.build 'nurten/cloudproject'
                 }
             }
         }
-    
-        
 
-        
+        stage('Run Docker Container') {
+            steps {
+                script {
+                    // Run the Docker container
+                    docker.image('nurten/cloudproject').run('-p 8080:80', '-d')
+                }
+            }
+        }
+
+        // Add more stages as needed for testing, deployment, etc.
     }
 
     post {
-        success {
-            // Başarılı bir şekilde tamamlandığında yapılacak işlemler
-            echo 'Pipeline başariyla tamamlandi!'
-        }
-
-        failure {
-            // Hata durumunda yapılacak işlemler
-            echo 'Pipeline kontrol edilmeli.'
-        }
-
         always {
-            // Her durumda yapılacak işlemler
-            echo 'Pipeline tamamlandi.'
+            // Clean up by stopping and removing the Docker container
+            script {
+                docker.image('nurten/cloudproject').stop()
+                docker.image('nurten/cloudproject').remove()
+            }
         }
     }
-
-    // Jenkins pipeline sona erdiğinde HTTP sunucusunu kapatma adımı
-
-
+}
