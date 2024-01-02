@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image
-                    docker.build 'nurten/cloudproject'
+                    docker.build 'nurten/cloudproject:new'
                 }
             }
         }
@@ -22,7 +22,7 @@ pipeline {
             steps {
                 script {
                     // Run the Docker container
-                    docker.image('nurten/cloudproject').run('-p 8080:80', '-d')
+                    docker.image('nurten/cloudproject:new').run('-p 8080:80', '-d')
                 }
             }
         }
