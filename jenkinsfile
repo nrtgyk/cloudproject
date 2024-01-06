@@ -25,6 +25,7 @@ pipeline {
                 sh 'docker push nurtengiyik/cloudproject:$BUILD_NUMBER'
             }
         }
+    }
 }
 post {
         always {
