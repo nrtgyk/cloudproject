@@ -1,19 +1,33 @@
 pipeline {
-    agent any
-    stages {
-        stage('Build') {
-            agent {
-                docker {
-                    image 'gradle:8.2.0-jdk17-alpine'
-                    // Run the container on the node specified at the
-                    // top-level of the Pipeline, in the same workspace,
-                    // rather than on a new node entirely:
-                    reuseNode true
-                }
-            }
-            steps {
-                sh 'gradle --version'
+    agent any 
+    environment {
+    DOCKERHUB_CREDENTIALS = credentials('nurtengiyik-dockerhub')
+    }
+    stages { 
+        stage('SCM Checkout') {
+            steps{
+            git 'https://github.com/nrtgyk/cloudproject.git'
             }
         }
-    }
+
+        stage('Build docker image') {
+            steps {  
+                sh 'docker build -t nurtengiyik/cloudproject:$BUILD_NUMBER .'
+            }
+        }
+        stage('login to dockerhub') {
+            steps{
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
+        stage('push image') {
+            steps{
+                sh 'docker push nurtengiyik/cloudproject:$BUILD_NUMBER'
+            }
+        }
+}
+post {
+        always {
+            sh 'docker logout'
+        }
 }
