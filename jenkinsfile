@@ -17,7 +17,7 @@ pipeline {
         }
         stage('login to dockerhub') {
             steps{
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $nurtengiyik --Nurten.yldz25-stdin'
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $nurtengiyik --Nurten.yldz25'
             }
         }
         stage('push image') {
